@@ -8,6 +8,7 @@ defmodule MobileFood.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {Finch, name: MobileFoodFinch},
       MobileFoodWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:mobile_food, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: MobileFood.PubSub},
