@@ -1,5 +1,5 @@
 defmodule MobileFoodWeb.Api.PermitsTest do
-  use MobileFoodWeb.ConnCase
+  use MobileFoodTest.Web.ConnCase
 
   defmodule Permit do
     use Ecto.Schema

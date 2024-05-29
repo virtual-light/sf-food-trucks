@@ -1,4 +1,4 @@
-defmodule MobileFoodWeb.ConnCase do
+defmodule MobileFoodTest.Web.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -27,7 +27,7 @@ defmodule MobileFoodWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import MobileFoodWeb.ConnCase
+      import MobileFoodTest.Web.ConnCase
     end
   end
 

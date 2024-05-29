@@ -1,5 +1,5 @@
 defmodule MobileFoodWeb.ErrorJSONTest do
-  use MobileFoodWeb.ConnCase, async: true
+  use MobileFoodTest.Web.ConnCase, async: true
 
   test "renders 404" do
     assert MobileFoodWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
