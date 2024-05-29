@@ -1,0 +1,35 @@
+name: Main
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: elixir:1.16.3-otp-26
+
+    env:
+      SECRET_KEY_BASE: Xj8exNA22FpBKyXAfkJ6hNJsI+Dj3ZDB53RV5ac4UbBJLb7aQEgk9BuDwvPnQxmF
+      MIX_ENV: test
+      CACHE_VERSION: pfGqmdN7BGWLttMw
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install hex/rebar
+        run: mix do local.hex --force, local.rebar --force
+
+      - name: Use cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ env.CACHE_VERSION }}-mix-deps-${{ hashFiles('**/mix.lock') }}
+          path: |
+            deps
+            _build
+      - name: Compile project
+        run: |
+          mix deps.get
+          mix compile --warnings-as-errors
+      - name: Check code format
+        run:  mix format --check-formatted
+
+      - name: Run tests
+        run: mix test
