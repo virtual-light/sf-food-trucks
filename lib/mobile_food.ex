@@ -28,12 +28,36 @@ defmodule MobileFood do
           location_description: :string | nil
         }
 
-  @spec permits :: [permit()]
+  @spec permits :: {:ok, [permit()]} | :error
   def permits do
-    with {:ok, %{status: 200, body: body}} <- fetch_permits_params() do
-      body
-      |> Jason.decode!()
-      |> build_permits()
+    with {:ok, data} <- fetch_permits_data() do
+      case Jason.decode(data) do
+        {:ok, permits_params} ->
+          {:ok, build_permits(permits_params)}
+
+        {:error, _} ->
+          Logger.warning("Failed to decode data returned by permits provider", data: data)
+          :error
+      end
+    end
+  end
+
+  defp fetch_permits_data do
+    case request_permits() do
+      {:ok, %{status: 200, body: body}} ->
+        {:ok, body}
+
+      {:ok, response} ->
+        Logger.warning(
+          "Unexpected status returned by a permits provider",
+          Map.take(response, ~w/status body/a)
+        )
+
+        :error
+
+      {:error, error} ->
+        Logger.warning("Failed to request a permits provider", http_error: error)
+        :error
     end
   end
 
@@ -69,7 +93,7 @@ defmodule MobileFood do
   end
 
   # NOTE: Can be entirely replaced by https://hexdocs.pm/socrata (?)
-  defp fetch_permits_params do
+  defp request_permits do
     :get
     |> Finch.build(permits_uri())
     |> finch_client().request(MobileFoodFinch)
