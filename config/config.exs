@@ -23,7 +23,7 @@ config :mobile_food, MobileFoodWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+  metadata: [:request_id, :objects_ids, :errors_data]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
