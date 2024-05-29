@@ -94,7 +94,7 @@ defmodule MobileFood do
       number: permit_data.permit,
       type: format_type(permit_data.facilitytype),
       name: permit_data.applicant,
-      food: String.split(permit_data.fooditems, ":", trim: true),
+      food: String.split(permit_data.fooditems, ~r/\s*\:+\s*/, trim: true),
       location_description: permit_data.locationdescription,
       latitude: permit_data.latitude,
       longitude: permit_data.longitude,

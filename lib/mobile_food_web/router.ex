@@ -7,6 +7,8 @@ defmodule MobileFoodWeb.Router do
 
   scope "/api", MobileFoodWeb do
     pipe_through :api
+
+    get "/permits", PermitController, :index
   end
 
   # Enable LiveDashboard in development
