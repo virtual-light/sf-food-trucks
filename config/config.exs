@@ -20,6 +20,8 @@ config :mobile_food, MobileFoodWeb.Endpoint,
   pubsub_server: MobileFood.PubSub,
   live_view: [signing_salt: "XW1TcbGz"]
 
+config :mobile_food, :finch, client: Finch
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

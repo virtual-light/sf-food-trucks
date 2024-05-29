@@ -7,6 +7,8 @@ config :mobile_food, MobileFoodWeb.Endpoint,
   secret_key_base: "HT08Nne1zsdyd2ifIn/CVg8dH49tvFbt0oamHW6x9PJp4TQF1aQjX90xNj+pg00u",
   server: false
 
+config :mobile_food, :finch, client: MobileFoodWeb.FinchMock
+
 # Print only warnings and errors during test
 config :logger, level: :warning
 

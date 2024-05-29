@@ -72,7 +72,7 @@ defmodule MobileFood do
   defp fetch_permits_params do
     :get
     |> Finch.build(permits_uri())
-    |> Finch.request(MobileFoodFinch)
+    |> finch_client().request(MobileFoodFinch)
   end
 
   defp permits_uri do
@@ -106,5 +106,11 @@ defmodule MobileFood do
     with type when type != nil <- external_type do
       if type == "Truck", do: :truck, else: :push_cart
     end
+  end
+
+  defp finch_client do
+    :mobile_food
+    |> Application.fetch_env!(:finch)
+    |> Keyword.fetch!(:client)
   end
 end

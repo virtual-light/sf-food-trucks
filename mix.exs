@@ -39,7 +39,8 @@ defmodule MobileFood.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
-      {:finch, "~> 0.18"}
+      {:finch, "~> 0.18"},
+      {:mox, "~> 1.1", only: :test}
     ]
   end
 end

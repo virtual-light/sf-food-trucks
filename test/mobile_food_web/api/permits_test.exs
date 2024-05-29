@@ -1,5 +1,6 @@
 defmodule MobileFoodWeb.Api.PermitsTest do
   use MobileFoodTest.Web.ConnCase
+  import Mox
 
   defmodule Permit do
     use Ecto.Schema
@@ -20,6 +21,8 @@ defmodule MobileFoodWeb.Api.PermitsTest do
 
   describe "Permits API" do
     test "returns permits list in expected format" do
+      stub(MobileFoodWeb.FinchMock, :request, fn _req, _ -> permits_response() end)
+
       conn = get(build_conn(), "/api/permits")
       assert permits = json_response(conn, 200)
 
@@ -41,5 +44,10 @@ defmodule MobileFoodWeb.Api.PermitsTest do
       %{errors: errors} ->
         {:error, errors}
     end
+  end
+
+  defp permits_response() do
+    content = File.read!("test/support/mobile_food_test/permits_data.json")
+    {:ok, %Finch.Response{status: 200, headers: [], body: content}}
   end
 end
