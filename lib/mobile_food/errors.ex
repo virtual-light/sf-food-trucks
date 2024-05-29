@@ -1,7 +1,7 @@
 defmodule MobileFood.Errors do
   @moduledoc """
   Data structure used to collect errors in a way
-  to make it easy to batch errors details and identifiers.
+  to make it easy to batch errors details and their identifiers.
   """
 
   defstruct errors_data: [], objects_ids: MapSet.new()

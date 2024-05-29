@@ -1,4 +1,9 @@
 defmodule MobileFood.Permit do
+  @moduledoc """
+  Representation of permits data returned by https://data.sfgov.org/resource/rqzj-sfat.json
+  More info: https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/about_data
+  """
+
   use Ecto.Schema
   @primary_key false
 
